@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#FFF5F5"/>
+  
+  <!-- Table -->
+  <rect x="40" y="120" width="120" height="10" fill="#8B4513"/>
+  <rect x="50" y="130" width="10" height="40" fill="#8B4513"/>
+  <rect x="140" y="130" width="10" height="40" fill="#8B4513"/>
+  
+  <!-- Coffee Cups -->
+  <circle cx="80" cy="110" r="15" fill="#FFF"/>
+  <path d="M65 110 h30 v20 q-15 5 -30 0 v-20" fill="#8B4513"/>
+  <path d="M95 120 c5 0 8 3 8 8 c0 5 -8 5 -8 0" fill="#8B4513"/>
+  
+  <circle cx="120" cy="110" r="15" fill="#FFF"/>
+  <path d="M105 110 h30 v20 q-15 5 -30 0 v-20" fill="#8B4513"/>
+  <path d="M135 120 c5 0 8 3 8 8 c0 5 -8 5 -8 0" fill="#8B4513"/>
+  
+  <!-- Heart -->
+  <path d="M90 70 l10-10 l10 10 l-10 10 z" fill="#FF69B4"/>
+</svg>
