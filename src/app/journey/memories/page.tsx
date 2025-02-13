@@ -1,21 +1,20 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { BackgroundBeams } from "@/components/ui/background-beams";
-import FloatingButton from "@/components/FloatingButton";
-import Image from "next/image";
-import AudioPlayer from "@/components/AudioPlayer";
-import rose from "@/images/rose.png";
-import propose from "@/images/propose.png";
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
+import { BackgroundBeams } from "@/components/ui/background-beams"
+import FloatingButton from "@/components/FloatingButton"
+import Image from "next/image"
+import AudioPlayer from "@/components/AudioPlayer"
+import rose from "@/images/rose.png"
+import propose from "@/images/propose.png"
 import chocolate from "@/images/chocolate.png"
 import teddy from "@/images/teddy.png"
 import promise from "@/images/promise.png"
 import hug1 from "@/images/hug1.png"
 import kiss from "@/images/kiss.jpg"
 import val from "@/images/val.png"
-
 
 const valentinesDays = [
   {
@@ -51,7 +50,7 @@ const valentinesDays = [
     description:
       "I promise to love you in all your forms, through all our days. My heart is yours, my love eternal. Every beat of my heart is a promise renewed, a vow to cherish you forever.",
     image: promise,
-    song: "https://res.cloudinary.com/djg26gece/video/upload/v1739480739/tera-20hone-20laga-20hoon-mr-jatt-com-21591-47307_r2hkex.mp3", 
+    song: "https://res.cloudinary.com/djg26gece/video/upload/v1739480739/tera-20hone-20laga-20hoon-mr-jatt-com-21591-47307_r2hkex.mp3",
   },
   {
     title: "Hug Day",
@@ -65,7 +64,7 @@ const valentinesDays = [
     description:
       "Every kiss with you feels like our first - magical, electrifying, and full of promise. Your lips are the poetry that my heart longs to read, again and again.",
     image: kiss,
-    song: "https://res.cloudinary.com/djg26gece/video/upload/v1739477214/sochnasakhe_arzjpz.mp3", 
+    song: "https://res.cloudinary.com/djg26gece/video/upload/v1739477214/sochnasakhe_arzjpz.mp3",
   },
   {
     title: "Valentine's Day",
@@ -74,37 +73,53 @@ const valentinesDays = [
     image: val,
     song: "https://res.cloudinary.com/djg26gece/video/upload/v1739480739/tera-20hone-20laga-20hoon-mr-jatt-com-21591-47307_r2hkex.mp3",
   },
-];
+]
 
-const ClientOnly = ({ children }: any) => {
-  const [hasMounted, setHasMounted] = useState(false);
+const ClientOnly = ({ children }: { children: React.ReactNode }) => {
+  const [hasMounted, setHasMounted] = useState(false)
   useEffect(() => {
-    setHasMounted(true);
-  }, []);
-  if (!hasMounted) return null;
-  return children;
-};
+    setHasMounted(true)
+  }, [])
+  if (!hasMounted) return null
+  return children
+}
 
 export default function MemoriesPage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % valentinesDays.length);
-  };
+  const nextSlide = async () => {
+    setIsTransitioning(true)
+    setIsPlaying(false) // Pause current audio
 
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + valentinesDays.length) % valentinesDays.length
-    );
-  };
+    // Wait a brief moment before changing slides
+    await new Promise((resolve) => setTimeout(resolve, 100))
+
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % valentinesDays.length)
+    setIsPlaying(true) // Start playing new audio
+    setIsTransitioning(false)
+  }
+
+  const prevSlide = async () => {
+    setIsTransitioning(true)
+    setIsPlaying(false) // Pause current audio
+
+    // Wait a brief moment before changing slides
+    await new Promise((resolve) => setTimeout(resolve, 100))
+
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + valentinesDays.length) % valentinesDays.length)
+    setIsPlaying(true) // Start playing new audio
+    setIsTransitioning(false)
+  }
 
   const toggleAudio = () => {
-    setIsPlaying(!isPlaying);
-  };
+    if (!isTransitioning) {
+      setIsPlaying((prev) => !prev)
+    }
+  }
 
-  const currentItem = valentinesDays[currentIndex];
+  const currentItem = valentinesDays[currentIndex]
 
   return (
     <ClientOnly>
@@ -123,9 +138,7 @@ export default function MemoriesPage() {
               transition={{ duration: 0.5 }}
               className="text-center"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-pink-300 mb-4">
-                {currentItem.title}
-              </h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-pink-300 mb-4">{currentItem.title}</h2>
               <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto mb-4 rounded-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-blue-500/30 to-purple-500/30 mix-blend-overlay rounded-full" />
                 <Image
@@ -137,26 +150,25 @@ export default function MemoriesPage() {
                 />
               </div>
               <div className="max-w-2xl mx-auto">
-                <TextGenerateEffect
-                  words={currentItem.description}
-                  className="text-sm md:text-base text-pink-100"
-                />
+                <TextGenerateEffect words={currentItem.description} className="text-sm md:text-base text-pink-100" />
               </div>
             </motion.div>
           </AnimatePresence>
 
           <div className="flex justify-center mt-8 space-x-4">
-            <FloatingButton text="Previous ❤️" onClick={prevSlide} />
+            <FloatingButton text="Previous ❤️" onClick={prevSlide} disabled={isTransitioning} />
             <FloatingButton
               text={isPlaying ? "Pause Music 🎵" : "Play Music 🎵"}
               onClick={toggleAudio}
+              disabled={isTransitioning}
             />
-            <FloatingButton text="Next ❤️" onClick={nextSlide} />
+            <FloatingButton text="Next ❤️" onClick={nextSlide} disabled={isTransitioning} />
           </div>
         </div>
 
-        <AudioPlayer src={currentItem.song} isPlaying={isPlaying} />
+        <AudioPlayer key={currentItem.song} src={currentItem.song} isPlaying={isPlaying} />
       </div>
     </ClientOnly>
-  );
+  )
 }
+

@@ -10,27 +10,63 @@ interface AudioPlayerProps {
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, isPlaying }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const previousSrcRef = useRef<string>("")
 
   useEffect(() => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.play().catch((error) => console.error("Audio playback failed:", error))
-      } else {
-        audioRef.current.pause()
+    // Create new audio element if it doesn't exist
+    if (!audioRef.current) {
+      audioRef.current = new Audio()
+      audioRef.current.preload = "auto"
+    }
+
+    // Handle source change
+    if (previousSrcRef.current !== src) {
+      const playAudio = async () => {
+        if (audioRef.current) {
+          try {
+            // Pause and reset current audio
+            audioRef.current.pause()
+            audioRef.current.currentTime = 0
+
+            // Update source and load new audio
+            audioRef.current.src = src
+            await audioRef.current.load()
+            previousSrcRef.current = src
+
+            // Play if isPlaying is true
+            if (isPlaying) {
+              await audioRef.current.play()
+            }
+          } catch (error) {
+            console.error("Audio playback error:", error)
+          }
+        }
+      }
+
+      playAudio()
+    } else {
+      // Handle play/pause for same audio
+      if (audioRef.current) {
+        if (isPlaying) {
+          audioRef.current.play().catch((error) => {
+            console.error("Audio playback error:", error)
+          })
+        } else {
+          audioRef.current.pause()
+        }
       }
     }
-  }, [isPlaying]) // Removed unnecessary src dependency
 
-  useEffect(() => {
+    // Cleanup
     return () => {
       if (audioRef.current) {
         audioRef.current.pause()
-        audioRef.current = null
+        audioRef.current.currentTime = 0
       }
     }
-  }, [])
+  }, [src, isPlaying])
 
-  return <audio ref={audioRef} src={src} loop />
+  return null
 }
 
 export default AudioPlayer

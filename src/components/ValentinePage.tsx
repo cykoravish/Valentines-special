@@ -81,8 +81,6 @@ export default function ValentinePage() {
             <div className="relative bg-gradient-to-r from-pink-500/10 to-purple-500/10 p-6 md:p-12 rounded-3xl border border-pink-500/20 backdrop-blur-xl">
               <h1 className="text-4xl md:text-6xl py-4 lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-300 to-purple-300 mb-4 md:mb-6">
                 Happy Valentine's Day
-                
-                
               </h1>
               <TextGenerateEffect
                 words="A journey through our love story awaits..."
@@ -106,6 +104,7 @@ export default function ValentinePage() {
             onClick={handleStartJourney}
           />
         </div>
+        <h1 className="text-red-500 text-center">❤️❤️by Ravish❤️❤️</h1>
       </div>
 
       {/* Enhanced decorative elements */}

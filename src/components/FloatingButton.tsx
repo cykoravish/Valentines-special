@@ -1,18 +1,24 @@
-import type React from "react"
-import { motion } from "framer-motion"
+import type React from "react";
+import { motion } from "framer-motion";
 
 interface FloatingButtonProps {
-  text: string
-  onClick: () => void
+  text: string;
+  onClick: () => void;
+  disabled?: boolean;
 }
 
-const FloatingButton: React.FC<FloatingButtonProps> = ({ text, onClick }) => {
+const FloatingButton: React.FC<FloatingButtonProps> = ({
+  text,
+  onClick,
+  disabled,
+}: any) => {
   return (
     <motion.button
       className="relative group px-6 py-3 md:px-8 md:py-4 bg-transparent rounded-full"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
+      disabled={disabled}
     >
       {/* Enhanced glow effects */}
       <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full blur-xl opacity-70 group-hover:opacity-100 transition-all duration-300" />
@@ -27,8 +33,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ text, onClick }) => {
         </motion.span>
       </div>
     </motion.button>
-  )
-}
+  );
+};
 
-export default FloatingButton
-
+export default FloatingButton;
