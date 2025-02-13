@@ -1,24 +1,31 @@
-"use client"
+"use client";
 
-import { useState, useEffect, Suspense } from "react"
-import dynamic from "next/dynamic"
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import { AnimatedTooltip } from "@/components/ui/animated-tooltip"
-import FloatingButton from "@/components/FloatingButton"
+import { useState, useEffect, Suspense } from "react";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
+import FloatingButton from "@/components/FloatingButton";
 
-import beachCouple from "@/images/beach-couple.svg"
-import coupleData from "@/images/couple-date.svg"
-import cozyCouple from "@/images/cozy-couple.svg"
+import beachCouple from "@/images/couple.jpg";
+import coupleData from "@/images/kiss.jpg";
+import cozyCouple from "@/images/night1.jpg";
 
-const DynamicFloatingHearts = dynamic(() => import("@/components/FloatingHearts"), { ssr: false })
-const DynamicSpotlight = dynamic(() => import("@/components/DynamicSpotlight"), { ssr: false })
+const DynamicFloatingHearts = dynamic(
+  () => import("@/components/FloatingHearts"),
+  { ssr: false }
+);
+const DynamicSpotlight = dynamic(
+  () => import("@/components/DynamicSpotlight"),
+  { ssr: false }
+);
 
 const memories = [
   {
     id: 1,
     name: "Our First Date",
     designation: "The day our journey began",
-    image:beachCouple,
+    image: beachCouple,
   },
   {
     id: 2,
@@ -32,17 +39,22 @@ const memories = [
     designation: "Just us, being us",
     image: cozyCouple,
   },
-]
+];
 
 export default function ValentinePage() {
-  const [isClient, setIsClient] = useState(false)
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    setIsClient(true);
+  }, []);
+
+  const handleStartJourney = () => {
+    router.push("/journey");
+  };
 
   if (!isClient) {
-    return null // or a loading indicator
+    return null; // or a loading indicator
   }
 
   return (
@@ -68,9 +80,9 @@ export default function ValentinePage() {
 
             <div className="relative bg-gradient-to-r from-pink-500/10 to-purple-500/10 p-6 md:p-12 rounded-3xl border border-pink-500/20 backdrop-blur-xl">
               <h1 className="text-4xl md:text-6xl py-4 lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-300 to-purple-300 mb-4 md:mb-6">
-                Happy Valentine's Day,
-                <br />
-                My Baby!
+                Happy Valentine's Day
+                
+                
               </h1>
               <TextGenerateEffect
                 words="A journey through our love story awaits..."
@@ -89,7 +101,10 @@ export default function ValentinePage() {
             </div>
           </div>
 
-          <FloatingButton text="Begin Our Journey ✨" onClick={() => console.log("Journey begins")} />
+          <FloatingButton
+            text="Begin Our Journey ✨"
+            onClick={handleStartJourney}
+          />
         </div>
       </div>
 
@@ -97,6 +112,5 @@ export default function ValentinePage() {
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent pointer-events-none" />
     </div>
-  )
+  );
 }
-
