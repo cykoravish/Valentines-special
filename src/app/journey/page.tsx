@@ -85,7 +85,7 @@ export default function JourneyPage() {
         >
           {/* Image Container */}
           <motion.div
-            className="relative w-64 h-64 md:w-96 md:h-96 mx-auto mb-8 rounded-full overflow-hidden"
+            className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 mx-auto mb-6 sm:mb-8 rounded-full overflow-hidden"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
@@ -108,7 +108,7 @@ export default function JourneyPage() {
               {heartPositions.current.map((pos, i) => (
                 <motion.div
                   key={i}
-                  className="absolute text-pink-500"
+                  className="absolute text-pink-500 text-xs sm:text-sm md:text-base"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
                     opacity: [0, 1, 0],
@@ -136,7 +136,7 @@ export default function JourneyPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -148,14 +148,22 @@ export default function JourneyPage() {
               >
                 <TextGenerateEffect
                   words={loveQuotes[currentQuoteIndex]}
-                  className="text-2xl md:text-3xl lg:text-4xl text-pink-200 font-valentine"
+                  className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-pink-200 font-valentine"
                 />
               </motion.div>
             </AnimatePresence>
 
-            <div className="flex justify-center space-x-4">
-              <FloatingButton text={isPlaying ? "Pause Music ❤️" : "Play Music ❤️"} onClick={toggleAudio} />
-              <FloatingButton text="Continue Journey ✨" onClick={() => router.push("/journey/memories")} />
+            <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4">
+              <FloatingButton
+                text={isPlaying ? "Pause Music ❤️" : "Play Music ❤️"}
+                onClick={toggleAudio}
+                className="text-sm sm:text-base px-3 py-2 sm:px-4 sm:py-2"
+              />
+              <FloatingButton
+                text="Continue Journey ✨"
+                onClick={() => router.push("/journey/memories")}
+                className="text-sm sm:text-base px-3 py-2 sm:px-4 sm:py-2"
+              />
             </div>
           </motion.div>
         </motion.div>
@@ -165,7 +173,7 @@ export default function JourneyPage() {
           {sparklePositions.current.map((pos, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-white rounded-full"
+              className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full"
               initial={{ opacity: 0 }}
               animate={{
                 opacity: [0, 1, 0],

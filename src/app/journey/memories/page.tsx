@@ -1,3 +1,6 @@
+
+
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -123,12 +126,12 @@ export default function MemoriesPage() {
 
   return (
     <ClientOnly>
-      <div className="h-screen w-full bg-black antialiased relative overflow-hidden font-valentine">
+      <div className="min-h-screen w-full bg-black antialiased relative overflow-hidden font-valentine">
         <BackgroundBeams />
 
         <div className="absolute inset-0 bg-gradient-to-t from-black via-purple-900/30 to-black pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center justify-center h-full p-4">
+        <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -138,8 +141,8 @@ export default function MemoriesPage() {
               transition={{ duration: 0.5 }}
               className="text-center"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-pink-300 mb-4">{currentItem.title}</h2>
-              <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto mb-4 rounded-full overflow-hidden">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pink-300 mb-4">{currentItem.title}</h2>
+              <div className="relative w-64 h-64 mx-auto mb-4 rounded-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-blue-500/30 to-purple-500/30 mix-blend-overlay rounded-full" />
                 <Image
                   src={currentItem.image || "/placeholder.svg"}
@@ -149,20 +152,34 @@ export default function MemoriesPage() {
                   priority
                 />
               </div>
-              <div className="max-w-2xl mx-auto">
-                <TextGenerateEffect words={currentItem.description} className="text-sm md:text-base text-pink-100" />
+              <div className="max-w-xs sm:max-w-sm md:max-w-2xl mx-auto">
+                <TextGenerateEffect
+                  words={currentItem.description}
+                  className="text-xs sm:text-sm md:text-base text-pink-100"
+                />
               </div>
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex justify-center mt-8 space-x-4">
-            <FloatingButton text="Previous ❤️" onClick={prevSlide} disabled={isTransitioning} />
+          <div className="flex flex-col sm:flex-row justify-center mt-6 sm:mt-8 space-y-2 sm:space-y-0 sm:space-x-4">
+            <FloatingButton
+              text="Previous ❤️"
+              onClick={prevSlide}
+              disabled={isTransitioning}
+              className="text-sm sm:text-base px-3 py-1 sm:px-4 sm:py-2 w-full sm:w-auto"
+            />
             <FloatingButton
               text={isPlaying ? "Pause Music 🎵" : "Play Music 🎵"}
               onClick={toggleAudio}
               disabled={isTransitioning}
+              className="text-sm sm:text-base px-3 py-1 sm:px-4 sm:py-2 w-full sm:w-auto"
             />
-            <FloatingButton text="Next ❤️" onClick={nextSlide} disabled={isTransitioning} />
+            <FloatingButton
+              text="Next ❤️"
+              onClick={nextSlide}
+              disabled={isTransitioning}
+              className="text-sm sm:text-base px-3 py-1 sm:px-4 sm:py-2 w-full sm:w-auto"
+            />
           </div>
         </div>
 

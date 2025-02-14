@@ -99,12 +99,12 @@ export default function ValentinePage() {
             </div>
           </div>
 
+          <h1 className="text-red-500 text-center">❤️❤️by Ravish❤️❤️</h1>
           <FloatingButton
             text="Begin Our Journey ✨"
             onClick={handleStartJourney}
           />
         </div>
-        <h1 className="text-red-500 text-center">❤️❤️by Ravish❤️❤️</h1>
       </div>
 
       {/* Enhanced decorative elements */}

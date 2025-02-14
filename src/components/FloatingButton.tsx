@@ -5,6 +5,7 @@ interface FloatingButtonProps {
   text: string;
   onClick: () => void;
   disabled?: boolean;
+  className?:string;
 }
 
 const FloatingButton: React.FC<FloatingButtonProps> = ({
